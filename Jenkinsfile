@@ -39,7 +39,7 @@ pipeline {
 
                     sh "docker run --rm -i \
                         -v /go:/go \
-                        -v ${env.WORKSPACE_ON_HOST}:/workspace \
+                        -v ${env.WORKSPACE_ON_HOST}:/root \
                         golang:1.16-alpine \
                         sh -c 'cd /root && sh build.sh'"
                 }
