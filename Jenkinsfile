@@ -6,6 +6,8 @@ pipeline {
         IMAGE_NAME = "${env.REGISTRY_HOST}/${env.SERVICE_NAME}"    // 镜像名称
     }
 
+    agent any
+
     stages {
         stage("pre-build") {
             steps {
