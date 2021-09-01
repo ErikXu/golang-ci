@@ -63,6 +63,16 @@ pipeline {
             }
         }
 
+        stage("deploy") {
+            steps {
+                script {
+                    echo "开始发布"
+                    
+                    sh "bash deploy.sh"
+                }
+            }
+        }
+        
         stage("dingtalk") {
             steps {
                 script {
