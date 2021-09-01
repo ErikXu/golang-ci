@@ -5,7 +5,7 @@ pipeline {
         JENKINS_HOME_ON_HOST = "/var/lib/jenkins"                                                // Jenkins Home 目录，用于 Jenkins 以容器方式启动的情况
         WORKSPACE_ON_HOST = env.WORKSPACE.replace("/var/lib/jenkins", env.JENKINS_HOME_ON_HOST)  // 宿主机工作目录
         SERVICE_NAME = "golang-ci"                                                               // 服务名称
-        REGISTRY_HOST = ""                                                                       // 镜像仓库地址
+        REGISTRY_HOST = "example.com"                                                                       // 镜像仓库地址
         IMAGE_NAME = "${env.REGISTRY_HOST}/${env.SERVICE_NAME}"                                  // 镜像名称
     }
 
