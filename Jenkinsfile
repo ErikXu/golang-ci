@@ -1,12 +1,12 @@
 pipeline {
+    agent any
+    
     environment {
         WORKSPACE_ON_HOST = "/var/jenkins_home"                    // 宿主机工作目录
         SERVICE_NAME = "golang-ci"                                 // 服务名称
         REGISTRY_HOST = ""                                         // 镜像仓库地址
         IMAGE_NAME = "${env.REGISTRY_HOST}/${env.SERVICE_NAME}"    // 镜像名称
     }
-
-    agent any
 
     stages {
         stage("pre-build") {
