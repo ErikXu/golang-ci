@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {service-name}
+  labels:
+    app: {service-name}
+    version: v1
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {service-name}
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: {service-name}
+        version: v1
+    spec:
+      containers:
+      - name: {service-name}
+        image: {image-name}:{image-tag}
+        ports:
+        - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: {service-name}
+  labels:
+    app: {service-name}
+  namespace: default
+spec:
+  selector:
+    app: {service-name}
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080  
