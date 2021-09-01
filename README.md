@@ -9,7 +9,7 @@ Jenkins ci for golang
   
 - build.sh
 
-  如果安装了 `docker`, 执行改脚本发布可执行文件
+  如果安装了 `docker`, 执行该脚本发布可执行文件
 
 - pack.sh
 
