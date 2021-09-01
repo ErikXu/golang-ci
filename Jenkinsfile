@@ -37,11 +37,9 @@ pipeline {
                 script {
                     echo "开始构建"
 
-                    sh "docker run --rm -i \
-                        -v /go:/go \
-                        -v ${env.WORKSPACE_ON_HOST}:/workspace \
-                        golang:1.16-alpine \
-                        sh -c 'cd /workspace && sh build.sh'"
+                    sh "cat build.sh | sed 's/${PWD}/${env.WORKSPACE_ON_HOST}/g' > build_in_jenkins.sh"
+
+                    sh "sh build_in_jenkins.sh"
                 }
             }
         }
