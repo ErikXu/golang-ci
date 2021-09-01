@@ -39,7 +39,7 @@ pipeline {
                 script {
                     echo "开始构建"
 
-                    sh "cat build.sh | sed 's|${PWD}|${env.WORKSPACE_ON_HOST}|g' > build_in_jenkins.sh"
+                    sh "cat build.sh | sed 's|\${PWD}|${env.WORKSPACE_ON_HOST}|g' > build_in_jenkins.sh"
 
                     sh "sh build_in_jenkins.sh"
                 }
