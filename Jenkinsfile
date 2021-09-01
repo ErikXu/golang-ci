@@ -16,6 +16,12 @@ pipeline {
                     echo "打印构建信息"
                     sh "export"
 
+                    // 构建成功通知钉钉
+                    env.START_TIME = Calendar.getInstance().getTime().format("yyyy-MM-dd HH:mm:ss",TimeZone.getTimeZone("GMT+8:00"))
+                    env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                    env.GIT_COMMIT_EMAIL = sh (script: 'git show -s --pretty=%ae ${GIT_COMMIT}', returnStdout: true).trim()
+                    env.ROBOT_ID = "{Your dingtalk robot id}"
+
                     // 使用当前日期 + git 提交号前8位作为镜像 TAG
                     env.IMAGE_TAG = Calendar.getInstance().getTime().format("yyyyMMdd-HHmmss",TimeZone.getTimeZone("GMT+8:00")) + "-" + env.GIT_COMMIT.substring(0, 8) 
 
@@ -53,6 +59,35 @@ pipeline {
                     echo "开始打包"
 
                     sh "sh pack.sh"
+                }
+            }
+        }
+
+        stage("dingtalk") {
+            steps {
+                script {
+                    env.END_TIME = Calendar.getInstance().getTime().format("yyyy-MM-dd HH:mm:ss",TimeZone.getTimeZone("GMT+8:00"))
+                }
+                echo "钉钉通知"
+            }
+            post {
+                success {
+                    dingtalk (
+                        robot: "${ROBOT_ID}",
+                        type: "MARKDOWN",
+                        title: "Jenkins 通知",
+                        text: [
+                            "# [${SERVICE_NAME}](${JOB_URL})",
+                            "---",
+                            "- 任务：[#${BUILD_ID}](${BUILD_URL})",
+                            "- 版本：${IMAGE_TAG}",
+                            "- 状态：<font color='#52C41A'>成功</font>",
+                            "- 开始时间：${START_TIME}",
+                            "- 结束时间：${END_TIME}",
+                            "- 提交人：${GIT_COMMIT_EMAIL}",
+                            "- 备注：${GIT_COMMIT_MSG}"
+                        ]
+                    )
                 }
             }
         }
