@@ -68,11 +68,11 @@ pipeline {
                 script {
                     echo "开始发布"
                     
-                    sh "bash deploy.sh"
+                    sh "sh deploy.sh"
                 }
             }
         }
-        
+
         stage("dingtalk") {
             steps {
                 script {
