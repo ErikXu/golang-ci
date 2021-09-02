@@ -7,6 +7,8 @@ pipeline {
         SERVICE_NAME = "golang-ci"                                                               // 服务名称
         REGISTRY_HOST = "example.com"                                                            // 镜像仓库地址
         IMAGE_NAME = "${env.REGISTRY_HOST}/${env.SERVICE_NAME}"                                  // 镜像名称
+        SONAR_HOST_URL = "example.com"                                                           // Sanor 代码扫描工具地址
+        SONAR_LOGIN = "login_token"                                                              // Sanor 代码扫描工具登录 token
     }
 
     stages {
@@ -72,6 +74,18 @@ pipeline {
                 }
             }
         }
+
+        stage("sonar-scan") {
+            steps {
+                script {
+                    echo "开始 sonar 代码扫描"
+                    
+                    sh "cat scan.sh | sed 's|\${PWD}|${env.WORKSPACE_ON_HOST}|g' > scan_in_jenkins.sh"
+
+                    sh "sh scan_in_jenkins.sh"
+                }
+            }
+        }  
 
         // 需要安装 Jenkins 钉钉插件: https://jenkinsci.github.io/dingtalk-plugin/
         stage("dingtalk") {
