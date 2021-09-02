@@ -1,0 +1,14 @@
+{
+	"id": "e37ca7c4-fb71-43c6-902d-53535e045c55",
+	"name": "golang-ci",
+	"values": [
+		{
+			"key": "host",
+			"value": "http://example.com",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-09-02T10:05:19.883Z",
+	"_postman_exported_using": "Postman/8.11.1"
+}

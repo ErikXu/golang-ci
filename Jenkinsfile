@@ -87,6 +87,18 @@ pipeline {
             }
         }  
 
+        stage("api-test") {
+            steps {
+                script {
+                    echo "开始接口自动化测试"
+                    
+                    sh "cat api_test.sh | sed 's|\${PWD}|${env.WORKSPACE_ON_HOST}|g' > api_test_in_jenkins.sh"
+
+                    sh "sh api_test_in_jenkins.sh"
+                }
+            }
+        } 
+
         // 需要安装 Jenkins 钉钉插件: https://jenkinsci.github.io/dingtalk-plugin/
         stage("dingtalk") {
             steps {
