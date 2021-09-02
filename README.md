@@ -23,6 +23,10 @@ Jenkins ci for golang
 
   如果安装了 `docker`, 执行该脚本可触发 sonar 代码扫描
 
+- api_test.sh
+
+  如果安装了 `docker`, 执行该脚本可进行接口自动化测试
+  
 ## FAQ
 
 ### WARNING: IPv4 forwarding is disabled. Networking will not work
