@@ -18,6 +18,10 @@ Jenkins ci for golang
 - deploy.sh
 
   执行完 `pack.sh` 后，执行该脚本把应用部署到 kubernetes
+  
+- scan.sh
+
+  如果安装了 `docker`, 执行该脚本可触发 sonar 代码扫描
 
 ## FAQ
 
