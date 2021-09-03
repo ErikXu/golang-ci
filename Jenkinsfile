@@ -95,6 +95,16 @@ pipeline {
                     sh "cat api_test.sh | sed 's|\${PWD}|${env.WORKSPACE_ON_HOST}|g' > api_test_in_jenkins.sh"
 
                     sh "sh api_test_in_jenkins.sh"
+                    
+                    // 需要安装 Jenkins HTML Publisher 插件
+                    publishHTML target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: false,
+                            keepAll: true,
+                            reportDir: 'test/api',
+                            reportFiles: 'api_report.html',
+                            reportName: 'APIReport'
+                        ]
                 }
             }
         } 
